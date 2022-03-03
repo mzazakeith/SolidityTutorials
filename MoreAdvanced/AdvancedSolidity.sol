@@ -96,7 +96,7 @@ anything stored as a variable in the contract and not in a function in the contr
 */
     //  the method above is good but not the best because if the status are more than 4 there will be so much to look through
 
-    // internally solidity stores enums as numbers from 0 going up eg. 0 will represent TODO
+    // internally solidity stores enums as numbers from 0 going up eg. 0 will represent
 
     enum Status{
         TODO,
@@ -128,4 +128,45 @@ anything stored as a variable in the contract and not in a function in the contr
      }
 
 
+ }
+
+ contract Structs{
+    //  Strucs are like classes without any methods
+    // Basically a way to hold a bunch of related info together without methdos
+    // Structs are better for gas
+
+    /**
+    What does a TODO app need 
+    Description of the task 
+    Status of the task
+    Unique Id of the task
+    Title
+     */
+    enum Status{
+        TODO,
+        IN_PROGRESS,
+        DONE,
+        CANCELLED
+    }  
+
+     struct Task{
+         string title;
+         string description;
+         Status status;
+     }
+
+     mapping(uint256 => Task) tasks;
+
+     function deleteTask(uint256 id) public{
+         delete tasks[id];
+     }
+
+     function addTask (uint256 id, string memory title, string memory description) public {
+         tasks[id] = Task({
+             title:title,
+             description:description,
+             status: Status.TODO
+         });
+     }
+     
  }
