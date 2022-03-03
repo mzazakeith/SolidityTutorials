@@ -208,4 +208,50 @@ anything stored as a variable in the contract and not in a function in the contr
 
  }
 
- 
+ contract Modifiers{
+     /**
+     Code that is run before or after any other function call
+
+     A function can have as many modifiers as you want
+     multiple modifiers are run in the order specified 
+     you can pass arguments to them
+
+     used to restrict access to functions 
+     used to validate the input of parameters
+     prevent certain types of attacks(eg. reentrancy attacks)
+      */
+
+      address owner;
+
+      constructor(){
+          owner = msg.sender;
+      }
+
+      modifier onlyOwner() {
+          require(msg.sender == owner, "Unauthorized" );
+          _;
+
+          // _; means run the rest of the code in this part 
+      }
+
+      /**
+      To make it run after the function do this
+
+      modifier onlyOwner() {
+          _;
+          require(msg.sender == owner, "Unauthorized" );
+      }
+
+      you can also put the _; in between two statements
+      
+       */
+        // funtions that can only be run by the owner - the modifier will run before the function
+
+       function someFunc1() public onlyOwner{
+       }
+       function someFunc2() public onlyOwner {
+       }
+       function someFunc3() public onlyOwner {
+       }
+
+ }
