@@ -170,3 +170,42 @@ anything stored as a variable in the contract and not in a function in the contr
      }
      
  }
+
+ contract ViewAndPureFucntions{
+
+     /**
+     Solidty has 3 kinds of keywords to indicate side effects of a function
+     Side effects means something that changes the value of a variable beyond its own scope example below
+      */
+
+      uint y;
+
+      function randomFunction () public{
+          uint x = 0;
+          x= 5;  // not a side effect 
+          y = 5; // a side effect because it changes the value of y that will reflect beyond the function itself
+      } 
+
+      /**
+      kind one - no keyword at all - modify or write to state 
+      kind two - view funtcion - Reads from state but does not write to the state 
+      kind three - pure function - Does not read or write to state 
+
+      specify on the function to save on gas
+
+      !!!!!!! pure and view functions are free
+       */
+
+    //    View
+    function getY() public view returns (uint){
+        return y;
+    }
+
+    // Pure
+    function add(uint x, uint z) public pure returns (uint){
+        return x+z;
+    }
+
+ }
+
+ 
