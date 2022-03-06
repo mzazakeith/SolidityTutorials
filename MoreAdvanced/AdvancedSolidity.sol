@@ -387,3 +387,22 @@ contract ExternalCaller{
 
      }
 }
+
+contract Events{
+    /**
+    What are events?
+    Events are essentially logs in the blockchain
+
+    you can use events to log informartion on the blockchain kind of a proof of history that something happened at a certain block
+
+    events have 
+    1.  name
+    2. argument you want to log
+
+     */
+
+     event TestFunctionCalled(address sender, string message);
+     function test() public {
+         emit TestFunctionCalled(msg.sender, "Someone called Test()");
+     }
+}
