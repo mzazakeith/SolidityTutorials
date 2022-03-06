@@ -18,8 +18,31 @@ import {contractABI, contractAddress} from "../utils/constants";
  }
 
  export const TransactionProvider = ({children}) =>{
+     let [currentAccount, setCurrentAccount] = useState();
+
+     const checkIfWalletIsConnected = async () =>{
+          if(!ethereum) return alert("Please Install Metamask");
+          const accounts = await ethereum.request({method:'eth_accounts'});
+          console.log(accounts);
+     }
+
+     const connectWallet = async () =>{
+         try{
+             if(!ethereum) return alert("Please Install Metamask");
+             const accounts = await ethereum.request({method:'eth_requestAccounts'});
+             setCurrentAccount=accounts[0];
+         }catch (e) {
+             console.log(e);
+             throw new Error("No ethereum object");
+         }
+     }
+
+     useEffect(() => {
+         checkIfWalletIsConnected();
+     }, []);
+     
      return(
-         <TransactionContext.Provider value={{value:"test "}}>
+         <TransactionContext.Provider value={{connectWallet}}>
              {children }
          </TransactionContext.Provider>
      )
