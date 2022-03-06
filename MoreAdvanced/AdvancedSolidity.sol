@@ -255,3 +255,56 @@ anything stored as a variable in the contract and not in a function in the contr
        }
 
  }
+
+//  Constructors only run once when the contract is deployed
+// you cannot manually call it 
+
+contract InheritanceA{
+    // inheriatnce is the way a contract can inherit all variables and methods from any other contract
+
+    /**
+    keyword for inheritance is 'is'
+    1. solidity supports multiple inheritance
+    2. A child contract can overide a parent function by using the overide keyword 
+    3. Only functions marked as virtual can be overridden
+    4. order of inheritance matters
+     */
+
+    //  This will be the top level parent contract 
+
+    // virtual allows this function to be overridden 
+
+    function foo () public pure virtual returns (string memory){
+        return ("contract A");
+    }
+
+}
+
+contract InheritanceB is InheritanceA{
+
+    // overide foo in contract A 
+
+    function foo() public pure virtual override returns(string memory){
+        return ("contract B");
+    }
+
+}
+
+contract InheritanceC is InheritanceA{
+     function foo() public pure virtual override returns(string memory){
+        return ("contract C");
+    }
+   
+}
+
+contract InheritanceD is InheritanceB, InheritanceC{
+    // to inherit from both
+    // https://www.youtube.com/watch?v=ILY3fIbwjk0 check 43minute
+   function foo() public pure override(InheritanceB, InheritanceC) returns(string memory){
+    //    super lets you call parent methods
+        return super.foo();
+        // order of inheritance goes left to right
+        // this will return contract C
+    }
+}
+
