@@ -308,3 +308,19 @@ contract InheritanceD is InheritanceB, InheritanceC{
     }
 }
 
+contract  ETHSender{
+    // mirror function
+    // takes eth and sends it back to the person
+    function mirror() public payable{
+        // msg.sender the person we are getting eth from and also sending the eth to
+        // msg.value is the amount of eth we get and also send back
+        // paybale means they can receive eth
+        address payable target = payable(msg.sender);
+        uint256 amount = msg.value;
+        //  (any payable address).call{value:amount}(""); 
+        // .call returns two variables - boolean indicating success or failure & bytes which have data
+
+       (bool success, ) = target.call{value:amount}("");
+       require(success, "FAILURE");
+    }
+}
