@@ -330,6 +330,7 @@ library SafeMath{
         uint z = x + y;
         // make sure no overflow occurs
         require(z>=x, "overflow happened");
+        require(z>=y, "overflow happened");
         return z;
     }
 }
