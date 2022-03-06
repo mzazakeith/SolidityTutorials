@@ -356,3 +356,34 @@ contract Libraries{
          return SafeMath.add(x, y);
      }
 }
+
+interface MinimalER20{
+    // only functions we need
+    function balanceOf(address account)external view returns (uint256);
+}
+
+contract ExternalCaller{
+    /**
+    if you are contract B trying to call function foo() from contract A you can call A.foo();
+    but this would require an interface 
+
+    an interface is like an ABI to a contract
+    it defines function declarations - name of the function , visibility, inputs, outputs, mutablitly.
+     */
+
+     MinimalER20 externalContract;
+
+     constructor(address someERC20Contract){
+         externalContract = MinimalER20(someERC20Contract);
+     }
+
+     function doIhaveBalance()public view{
+         /**
+         check if msg.sender() owns eny ERC20 tokens from the contract
+         require that the balance is higher than 0 or fail the txn
+          */
+          uint balance = externalContract.balanceOf(msg.sender);
+          require(balance>0, "You don't have enough tokens");
+
+     }
+}
