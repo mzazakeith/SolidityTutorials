@@ -28,14 +28,7 @@ contract Transactions{
         timestamp:block.timestamp,
         keyword:keyword
         }));
-        emit Transfer({
-        sender:msg.sender,
-        receiver:receiver,
-        amount:amount,
-        message:message,
-        timestamp:block.timestamp,
-        keyword:keyword
-        });
+        emit Transfer(msg.sender,receiver,amount,message,block.timestamp, keyword);
     }
 
     function getAllTransaction() public view returns (TransferStruct[] memory){
