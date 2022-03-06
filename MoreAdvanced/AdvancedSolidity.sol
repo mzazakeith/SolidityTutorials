@@ -325,3 +325,33 @@ contract  ETHSender{
     }
 }
 
+library SafeMath{
+    function add(uint x, uint y ) internal pure returns (uint){
+        uint z = x + y;
+        // make sure no overflow occurs
+        require(z>=x, "overflow happened");
+        return z;
+    }
+}
+
+contract Libraries{
+    /**
+
+    all functions in a library are pure functions
+
+    top level construct solidity
+    1. contract
+    2. interface 
+    3. library
+
+    What is a solidity library
+    Typically used to add helper functions in your contracts
+    They cannot contain any states - no state variables, no mappings/structs/arrays etc
+    you can just have functions that take inputs and gives an output
+
+    Before sol 0.8 a commmon library was safemath which was used to ensure all math operations were valid
+     */
+     function testAddition(uint x, uint y) public pure returns(uint){
+         return SafeMath.add(x, y);
+     }
+}
